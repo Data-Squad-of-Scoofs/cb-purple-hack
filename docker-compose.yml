@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    container_name: chroma_db
+    image: chromadb/chroma
+    restart: always
+    ports:
+      - "8000:8000"
+  api:
+    container_name: flask_api
+    build: ./flask_api
+    restart: always
+    depends_on:
+      - db
+    command: ["python", "-u", "-m", "main_flask"]
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=1
