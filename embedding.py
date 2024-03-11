@@ -10,8 +10,8 @@ class E5LargeEmbeddingFunction(EmbeddingFunction):
         super().__init__()
 
         self.device = 'cuda' if cuda.is_available() else 'cpu'
-        self.tokenizer = AutoTokenizer.from_pretrained('intfloat/e5-large')
-        self.model = AutoModel.from_pretrained('intfloat/e5-large')
+        self.tokenizer = AutoTokenizer.from_pretrained('intfloat/multilingual-e5-large')
+        self.model = AutoModel.from_pretrained('intfloat/multilingual-e5-large')
 
         self.mode = 'passage' #passage для документов, query для запросов пользователя
 
