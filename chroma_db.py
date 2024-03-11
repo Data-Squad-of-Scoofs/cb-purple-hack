@@ -32,15 +32,13 @@ class ChromaDB:
         self.embedding_function = E5LargeEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(name=name, embedding_function=self.embedding_function)
 
-        self.docs_counter = 10_001
         self.rows_counter = 0
 
         self.bm25_bag = None
 
-    def insert_document(self, chunks, link=None, is_markdown=None, pages=None):
+    def insert_document(self, index, chunks, link=None, is_markdown=None, pages=None):
         self.embedding_function.change_mode(new_mode='passage')
-        self.docs_counter += 1
-        doc_id = self.docs_counter
+        doc_id = index
 
         row_id = self.rows_counter
 
