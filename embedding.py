@@ -11,7 +11,7 @@ class E5LargeEmbeddingFunction(EmbeddingFunction):
 
         self.device = 'cuda' if cuda.is_available() else 'cpu'
         self.tokenizer = AutoTokenizer.from_pretrained('intfloat/multilingual-e5-large')
-        self.model = AutoModel.from_pretrained('intfloat/multilingual-e5-large')
+        self.model = AutoModel.from_pretrained('intfloat/multilingual-e5-large').to(self.device)
 
         self.mode = 'passage' #passage для документов, query для запросов пользователя
 
@@ -30,7 +30,7 @@ class E5LargeEmbeddingFunction(EmbeddingFunction):
         input_text = [f'{self.mode}: ' + x for x in input_text]
 
         # Tokenize the input texts
-        batch_dict = self.tokenizer(input_text, max_length=512, padding=True, truncation=True, return_tensors='pt')
+        batch_dict = self.tokenizer(input_text, max_length=512, padding=True, truncation=True, return_tensors='pt').to(self.device)
 
         outputs = self.model(**batch_dict)
         embeddings = self.average_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
