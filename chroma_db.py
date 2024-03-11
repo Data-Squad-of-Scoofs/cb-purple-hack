@@ -32,16 +32,8 @@ class ChromaDB:
         self.embedding_function = E5LargeEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(name=name, embedding_function=self.embedding_function)
 
-        self.docs_counter = -1 #maximum doc id
-        all_rows = self.collection.get()
-        for row in all_rows['metadatas']:
-            self.docs_counter =  max(self.docs_counter, row['doc_id'])
-        #вместо этих строк - цифру, с которой начали заливать
-        
-        if all_rows['ids']:
-            self.rows_counter = int(max(all_rows['ids'])) + 1
-        else:
-            self.rows_counter = 0
+        self.docs_counter = 10_001
+        self.rows_counter = 0
 
         self.bm25_bag = None
 
@@ -56,8 +48,7 @@ class ChromaDB:
             documents=chunks,
             metadatas=[{"link": link, "doc_id": doc_id, 'chunk_id': chunk_in_doc_id, 'max_length': len(chunks), 'is_markdown': is_markdown, 'pages': pages} 
                        for chunk_in_doc_id in range(len(chunks))],
-            ids=list(map(str, range(row_id, row_id+len(chunks)))),
-            #ids= ['a' + str(x) for x in  range(row_id, row_id+len(chunks))] тут любую букву вместо 'a'
+            ids= ['v' + str(x) for x in  range(row_id, row_id+len(chunks))]
         )
 
         self.rows_counter += len(chunks)
