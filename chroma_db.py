@@ -36,6 +36,7 @@ class ChromaDB:
         all_rows = self.collection.get()
         for row in all_rows['metadatas']:
             self.docs_counter =  max(self.docs_counter, row['doc_id'])
+        #вместо этих строк - цифру, с которой начали заливать
         
         if all_rows['ids']:
             self.rows_counter = int(max(all_rows['ids'])) + 1
