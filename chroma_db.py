@@ -3,6 +3,8 @@ import logging
 from rank_bm25 import BM25Okapi
 import numpy as np
 
+from nltk.tokenize import word_tokenize
+
 from embedding import E5LargeEmbeddingFunction
 
 def get_window_range(num, window_range, doc_length):
@@ -13,6 +15,8 @@ def get_window_range(num, window_range, doc_length):
         right = answer[-1] + 1
         if left >= 0:
             answer = [left] + answer
+            if len(answer) >= window_range:
+                return answer
         else:
             f += 1
 
@@ -156,34 +160,44 @@ class ChromaDB:
             return 
 
         res = []
+
         for knn_res in query_res['metadatas'][0]:
 
             most_relevant_doc_id = knn_res['doc_id']
             most_relevant_chunk_id = knn_res['chunk_id']
             doc_length = knn_res['max_length']
-
             window_chunks = [{"chunk_id": x} for x in get_window_range(most_relevant_chunk_id, chunk_window, doc_length)]
 
             res.append(self.collection.get(where={"$and": [{"$or": window_chunks}, {"doc_id": most_relevant_doc_id}]}))
 
         return res
     
-    def bm25_request(self, question, n_results=3, chunk_window=3):
+    def bm25_request(self, question, n_results=3, chunk_window=3, top_bm25_out=1):
         res = self.query_knn(question, n_results=n_results, chunk_window=chunk_window)
 
         all_links = []
-        all_docs = []
+        all_docs = res[0]["documents"]
+
         for i in res:
             all_links.append(i['metadatas'][0]['link'])
-            all_docs.extend(i['documents'])
 
-        tokenized_corpus = [doc.split(" ") for doc in all_docs]
+        tokenized_corpus = [word_tokenize(doc) for doc in all_docs]
 
         bm25 = BM25Okapi(tokenized_corpus)
 
-        query = "как обратиться в банк"
-        tokenized_query = query.split(" ")
+        tokenized_query = word_tokenize(question)
 
         doc_scores = bm25.get_scores(tokenized_query)
+
+        if all(doc_scores == 0):
+            return ['Все найденные через KNN документы не имеют ничего общего к запросу по мнению bm25']
         
-        return res[np.argmax(doc_scores)//n_results]
+        answer = []
+
+        args = np.argsort(doc_scores, axis=0)
+
+        for i in range(1, top_bm25_out+1):
+            answer.append(res[args[-i]//len(all_docs)])
+
+        return answer #knn может вернуть не n_results, а больше, если дистанции в точности равны!
+ 
