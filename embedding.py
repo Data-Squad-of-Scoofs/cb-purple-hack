@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModel
 from torch import cuda
 
 class E5LargeEmbeddingFunction(EmbeddingFunction):
-    def __init__(self) -> None:
+    def __init__(self, device='') -> None:
         super().__init__()
 
         self.device = 'cuda' if cuda.is_available() else 'cpu'
@@ -27,7 +27,7 @@ class E5LargeEmbeddingFunction(EmbeddingFunction):
 
     def get_embeddings(self, input_text):
         #add mode marker
-        input_text = [f'{self.mode}: ' + x for x in input_text]
+        input_text = f'{self.mode}: ' + input_text
 
         # Tokenize the input texts
         batch_dict = self.tokenizer(input_text, max_length=512, padding=True, truncation=True, return_tensors='pt').to(self.device)
