@@ -7,6 +7,7 @@ from nltk.tokenize import word_tokenize
 
 from embedding import E5LargeEmbeddingFunction
 
+# для возврата соседних чанков
 def get_window_range(num, window_range, doc_length):
     answer = [num]
     while len(answer) < window_range:
