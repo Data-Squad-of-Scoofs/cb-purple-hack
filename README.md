@@ -18,13 +18,15 @@ I ChromaDB
 Запуск базы в docker:
 ```bash
 docker pull chromadb/chroma
-docker run -p 8000:8000 chromadb/chroma ```
+docker run -p 8000:8000 chromadb/chroma
+```
 
 Подключение:
 
-```bash
+```python
 pip install chromadb
-self.client = chromadb.HttpClient(host=your_ip, port=your_port) ```
+self.client = chromadb.HttpClient(host=your_ip, port=your_port)
+```
 
 II ClickHouse
 
@@ -32,6 +34,7 @@ II ClickHouse
 
 Подключение:
 
-```bash
+```python
 pip install clickhouse_connect
-client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password) ```
+client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password)
+```
