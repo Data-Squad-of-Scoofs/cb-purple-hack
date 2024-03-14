@@ -12,7 +12,6 @@ not need
 flask api
 
 *.csv
-*.txt
 
 
 rows.txt
