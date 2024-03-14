@@ -10,6 +10,9 @@ chroma
 
 not need
 flask api
-Corpus_v4.csv
+
+*.csv
+*.txt
+
 
 rows.txt
