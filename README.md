@@ -24,9 +24,9 @@ https://github.com/Data-Squad-of-Scoofs/cb-purple-hack/blob/db/inference_llm.ipy
 
 # ***Как обращаться к базе данных?***
 
-нами было реализовано для различных варианта
+Нами было реализовано для различных варианта. В итоге был выбран ClickHouse.
 
-## I ChromaDB
+## 1. ChromaDB
 
 Запуск базы в docker:
 ```bash
@@ -41,9 +41,10 @@ pip install chromadb
 self.client = chromadb.HttpClient(host=your_ip, port=your_port)
 ```
 
-## II ClickHouse
+## 2. ClickHouse
 
 Запуск базы происходил через clickhouse.cloud, возможен также запуск через docker
+Работает быстрее, чем ChromaDB
 
 Подключение:
 
@@ -52,7 +53,7 @@ pip install clickhouse_connect
 client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password)
 ```
 
-# Генерация валидационнного датасета
+# Генерация валидационного датасета
 
 <a href="https://ibb.co/TqnfPqk"><img src="https://i.ibb.co/QjqgYjf/14-03-2024-09-30-26.png" alt="14-03-2024-09-30-26" border="0"></a>
 
