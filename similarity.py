@@ -88,15 +88,9 @@ def bm25_ensemble_with_crossenc_answer(query, client, emb_func, bm25_n_results=1
         all_pages.append(row[4])
 
     tokenized_corpus = [word_tokenize(doc, language='russian') for doc in all_docs]
-
     bm25 = BM25Okapi(tokenized_corpus)
-
     tokenized_query = word_tokenize(query, language='russian')
-
     doc_scores = bm25.get_scores(tokenized_query)
-
-    if all(doc_scores == 0):
-        return ['Все найденные через KNN документы не имеют ничего общего к запросу по мнению bm25']
     
     bm25_answer = []
     args = np.argsort(doc_scores, axis=0)
@@ -107,19 +101,28 @@ def bm25_ensemble_with_crossenc_answer(query, client, emb_func, bm25_n_results=1
     crossenc_answer = []
     for p in range(bm25_n_results):
         try:
-            crossenc_answer += [get_similarity(query, bm25_answer[p][3][:2048])]
+            crossenc_answer += [get_similarity(query, bm25_answer[p][3])]
         except IndexError:
-            print('возникла ошибка')
-            crossenc_answer += [0]
-    
+            try:
+                crossenc_answer += [get_similarity(query, bm25_answer[p][3][:2000])]
+            except IndexError:
+                try:
+                    crossenc_answer += [get_similarity(query, bm25_answer[p][3][:1000])]
+                except IndexError:
+                    try:
+                        crossenc_answer += [get_similarity(query, bm25_answer[p][3][:500])]
+                    except IndexError:
+                        crossenc_answer += [0]
 
     final_ans = []
     args_cr = np.flipud(np.argsort(crossenc_answer, axis=0))
 
     for f in range(cr_enc_n_results):
-        final_ans.append(bm25_answer[args_cr[f]])
+        temp = args_cr[f]
+        final_ans.append(bm25_answer[temp])
     
     return final_ans
+
 
 def knn_bm25(query, client, emb_func, bm25_n_results=3, limit_knn=100, knn_docs_window=1):
     res = _clickhouse_query_window(query, client, emb_func, limit_knn=limit_knn, docs_window=knn_docs_window)
