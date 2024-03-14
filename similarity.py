@@ -152,10 +152,11 @@ def knn_bm25(query, client, emb_func, bm25_n_results=3, limit_knn=100, knn_docs_
         
     return bm25_answer
 
-def bm25_fewshot(df, query, bm25_n_results=3):
+def bm25_fewshot_with_cross_encoder(df, query, bm25_n_results=3, cr_enc_n_results=2):
     all_qs = []
     all_as = []
     all_cs = []
+
     for idx, row in df.iterrows():
         all_qs.append(row['generated_question'])
         all_as.append(row['generated_answer'])
@@ -167,13 +168,25 @@ def bm25_fewshot(df, query, bm25_n_results=3):
     doc_scores = bm25.get_scores(tokenized_query)
 
     if all(doc_scores == 0):
-        return ['Все найденные через KNN документы не имеют ничего общего к запросу по мнению bm25']
+        return [{'error': 'No relevant documents found by BM25'}]
     
     top_doc_indices = np.argsort(doc_scores)[::-1][:bm25_n_results]
-    
-    bm25_answer = []
 
+    cross_encoder_scores = []
     for idx in top_doc_indices:
-        bm25_answer.append(all_as[idx])
+        q_text = all_qs[idx] + all_as[idx]
+        score = get_similarity(query, q_text)
+        cross_encoder_scores.append((score, idx))
 
-    return bm25_answer
+    cross_encoder_scores.sort(reverse=True, key=lambda x: x[0])
+    top_indices_after_cross_encoder = [score_tuple[1] for score_tuple in cross_encoder_scores[:cr_enc_n_results]]
+    
+    final_results = []
+    for idx in top_indices_after_cross_encoder:
+        final_results.append({
+            'question': all_qs[idx],
+            'answer': all_as[idx],
+            'context': all_cs[idx]
+        })
+
+    return final_results
