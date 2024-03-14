@@ -106,7 +106,11 @@ def bm25_ensemble_with_crossenc_answer(query, client, emb_func, bm25_n_results=1
         
     crossenc_answer = []
     for p in range(bm25_n_results):
-        crossenc_answer += [get_similarity(query, bm25_answer[p][3])]
+        try:
+            crossenc_answer += [get_similarity(query, bm25_answer[p][3][:2048])]
+        except IndexError:
+            print('возникла ошибка')
+            crossenc_answer += [0]
     
 
     final_ans = []
@@ -116,3 +120,60 @@ def bm25_ensemble_with_crossenc_answer(query, client, emb_func, bm25_n_results=1
         final_ans.append(bm25_answer[args_cr[f]])
     
     return final_ans
+
+def knn_bm25(query, client, emb_func, bm25_n_results=3, limit_knn=100, knn_docs_window=1):
+    res = _clickhouse_query_window(query, client, emb_func, limit_knn=limit_knn, docs_window=knn_docs_window)
+
+    all_links = []
+    all_docs = []
+    all_pages = []
+
+    for row in res:
+        all_links.append(row[2])
+        all_docs.append(row[3])
+        all_pages.append(row[4])
+
+    tokenized_corpus = [word_tokenize(doc, language='russian') for doc in all_docs]
+
+    bm25 = BM25Okapi(tokenized_corpus)
+
+    tokenized_query = word_tokenize(query, language='russian')
+
+    doc_scores = bm25.get_scores(tokenized_query)
+
+    if all(doc_scores == 0):
+        return ['Все найденные через KNN документы не имеют ничего общего к запросу по мнению bm25']
+    
+    bm25_answer = []
+    args = np.argsort(doc_scores, axis=0)
+
+    for i in range(1, bm25_n_results+1):
+        bm25_answer.append(res[args[-i]])
+        
+    return bm25_answer
+
+def bm25_fewshot(df, query, bm25_n_results=3):
+    all_qs = []
+    all_as = []
+    all_cs = []
+    for idx, row in df.iterrows():
+        all_qs.append(row['generated_question'])
+        all_as.append(row['generated_answer'])
+        all_cs.append(row['context_batch'])
+
+    tokenized_corpus = [word_tokenize(doc, language='russian') for doc in all_qs]
+    bm25 = BM25Okapi(tokenized_corpus)
+    tokenized_query = word_tokenize(query, language='russian')
+    doc_scores = bm25.get_scores(tokenized_query)
+
+    if all(doc_scores == 0):
+        return ['Все найденные через KNN документы не имеют ничего общего к запросу по мнению bm25']
+    
+    top_doc_indices = np.argsort(doc_scores)[::-1][:bm25_n_results]
+    
+    bm25_answer = []
+
+    for idx in top_doc_indices:
+        bm25_answer.append(all_as[idx])
+
+    return bm25_answer
