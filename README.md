@@ -52,6 +52,11 @@ pip install clickhouse_connect
 client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password)
 ```
 
+# Генерация валидационнного датасета
+
+<a href="https://ibb.co/TqnfPqk"><img src="https://i.ibb.co/QjqgYjf/14-03-2024-09-30-26.png" alt="14-03-2024-09-30-26" border="0"></a>
+
+
 ------
 
 <a href="https://ibb.co/mvw67Gb"><img src="https://i.ibb.co/k3fQFx5/agents-d454d8169fbdc89ca73f7e23224a5122.png" alt="agents-d454d8169fbdc89ca73f7e23224a5122" border="0"></a>
