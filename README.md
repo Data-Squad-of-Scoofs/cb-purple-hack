@@ -10,7 +10,7 @@ Get to know us:
 - [Vlad](https://github.com/vladik-pwnz)
 - [Nikita](https://github.com/AnalyseOptimize)
 
-# ***Navigation***
+## ***Navigation***
 - `dataset_preprocessing` - cleaning the corpus of scraped texts
 - `qa_generation` - generating questions for validation and finetuning the solution
 - `knn_bm25.ipynb` - some experiments with combining two search algorithms
