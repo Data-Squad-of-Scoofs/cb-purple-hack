@@ -12,6 +12,7 @@ Get to know us:
 
 ## ***Navigation***
 - `dataset_preprocessing` - cleaning the corpus of scraped texts
+- `custom_qa_chain.py` - custom question-answer generation chain compatible with LangChain
 - `qa_generation.ipynb` - generating questions for validation and finetuning the solution
 - `num2text.ipynb` - numbers preprocessing
 - `chroma_db` - all files related to launching and populating ChromaDB
