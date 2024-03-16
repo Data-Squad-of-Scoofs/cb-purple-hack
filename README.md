@@ -1,3 +1,15 @@
+# 🤖 IT Purple Hack & Central Bank of Russia
+Building LLM-based RAG chat-bot for the Central Bank.
+
+## 🦸‍♂️ Team
+We are the finalists of this competition. 
+Get to know us:
+- [Solomon](https://github.com/veidlink)
+- [Roman](https://github.com/gblssroman)
+- [Nikita](https://github.com/qdzzzxc)
+- [Vlad](https://github.com/vladik-pwnz)
+- [Nikita](https://github.com/AnalyseOptimize)
+
 ### CONTEXT ###
 - `dataset_preprocessing` - cleaning the corpus of scraped texts
 - `qa_generation` - generating questions for validation and finetuning the solution
