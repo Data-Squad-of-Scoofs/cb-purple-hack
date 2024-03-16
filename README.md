@@ -72,4 +72,4 @@ client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=yo
 
 ------
 
-[![agents-d454d8169fbdc89ca73f7e23224a5122](https://i.ibb.co/k3fQFx5/agents-d454d8169fbdc89ca73f7e23224a5122.png)](https://ibb.co/mvw67Gb)
+[![agents-d454d8169fbdc89ca73f7e23224a5122](https://i.ibb.co/yVY0pyR/photo-2024-03-16-22-17-39.jpg)](https://ibb.co/mvw67Gb)
