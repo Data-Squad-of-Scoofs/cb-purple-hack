@@ -7,7 +7,7 @@ Get to know us:
 - [Solomon](https://github.com/veidlink)
 - [Roman](https://github.com/gblssroman)
 - [Nikita](https://github.com/qdzzzxc)
-- [Vlad](https://github.com/vladik-pwnz)
+- [Vladislav](https://github.com/vladik-pwnz)
 - [Nikita](https://github.com/AnalyseOptimize)
 
 ## ***Navigation***
