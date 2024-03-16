@@ -1,3 +1,15 @@
+# 🥉 Hackathon of the Graduate School of Business and VK   
+Predicting patient recovery using ML algorithms, image recognition for sanctuary by computer vision models, recommendation system for advertising banners 
+
+## 🦸‍♂️ Team
+We are the bronze medalists of this competition. 
+Get to know us:
+- [Solomon](https://github.com/veidlink)
+- [Roman](https://github.com/gblssroman)
+- [Nikita](https://github.com/qdzzzxc)
+- [Vlad](https://github.com/vladik-pwnz)
+- [Nikita](https://github.com/AnalyseOptimize)
+
 # Навигация по репозиторию
 - `dataset_preprocessing` - очистка корпуса спаршенных текстов
 - `qa_generation` - генерация вопросов для валидации и finetun-a решения
