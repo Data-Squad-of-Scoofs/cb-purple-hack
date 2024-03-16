@@ -68,8 +68,8 @@ client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=yo
 
 # Generating a validation dataset
 
-[![14-03-2024-09-30-26](https://i.ibb.co/QjqgYjf/14-03-2024-09-30-26.png)](https://ibb.co/TqnfPqk)
+[![14-03-2024-09-30-26](https://i.ibb.co/yVY0pyR/photo-2024-03-16-22-17-39.jpg)](https://ibb.co/TqnfPqk)
 
 ------
 
-[![agents-d454d8169fbdc89ca73f7e23224a5122](https://i.ibb.co/yVY0pyR/photo-2024-03-16-22-17-39.jpg)](https://ibb.co/mvw67Gb)
+[![agents-d454d8169fbdc89ca73f7e23224a5122]()](https://i.ibb.co/FsMgtKm/agents-d454d8169fbdc89ca73f7e23224a5122.png)
