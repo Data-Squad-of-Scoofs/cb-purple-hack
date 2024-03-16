@@ -27,9 +27,9 @@ Get to know us:
 
 Starting the server:
 1. Launch the server in LM Studio
-2. \`\`\`choco install ngrok\`\`\`
-3. \`\`\`ngrok config add-authtoken [authtoken]\`\`\`
-4. \`\`\`ngrok http --domain=live-relaxed-oryx.ngrok-free.app 1234 \`\`\`
+2. ```choco install ngrok```
+3. ```ngrok config add-authtoken [authtoken]```
+4. ```ngrok http --domain=live-relaxed-oryx.ngrok-free.app 1234 ```
 
 Interacting with LLM 
 https://github.com/Data-Squad-of-Scoofs/cb-purple-hack/blob/db/inference_llm.ipynb
@@ -41,17 +41,17 @@ We implemented various options. Eventually, ClickHouse was chosen.
 ## 1. ChromaDB
 
 Launching the database in docker:
-\`\`\`bash
+```
 docker pull chromadb/chroma
 docker run -p 8000:8000 chromadb/chroma
-\`\`\`
+```
 
 Connecting:
 
-\`\`\`python
+```
 pip install chromadb
 self.client = chromadb.HttpClient(host=your_ip, port=your_port)
-\`\`\`
+```
 
 ## 2. ClickHouse
 
@@ -60,10 +60,10 @@ It operates faster than ChromaDB.
 
 Connecting:
 
-\`\`\`python
+```
 pip install clickhouse_connect
 client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password)
-\`\`\`
+```
 
 # Generating a validation dataset
 
