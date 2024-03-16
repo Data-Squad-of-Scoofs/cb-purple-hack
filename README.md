@@ -12,8 +12,8 @@ Get to know us:
 
 ## ***Navigation***
 - `dataset_preprocessing` - cleaning the corpus of scraped texts
-- `qa_generation` - generating questions for validation and finetuning the solution
-- `knn_bm25.ipynb` - some experiments with combining two search algorithms
+- `qa_generation.ipynb` - generating questions for validation and finetuning the solution
+- `num2text.ipynb` - numbers preprocessing
 - `chroma_db` - all files related to launching and populating ChromaDB
 - `clickhouse` - writing data to Clickhouse from a csv file
 - `simularity.py` - script for finding relevant documents
