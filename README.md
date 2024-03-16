@@ -1,8 +1,8 @@
-# 🥉 Hackathon of the Graduate School of Business and VK   
-Predicting patient recovery using ML algorithms, image recognition for sanctuary by computer vision models, recommendation system for advertising banners 
+# IT Purple Hack & Central Bank of Russia
+Building LLM-based RAG chat-bot for the Central Bank.
 
 ## 🦸‍♂️ Team
-We are the bronze medalists of this competition. 
+We are the finalists of this competition. 
 Get to know us:
 - [Solomon](https://github.com/veidlink)
 - [Roman](https://github.com/gblssroman)
