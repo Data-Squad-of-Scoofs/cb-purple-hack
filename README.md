@@ -1,75 +1,62 @@
-# IT Purple Hack & Central Bank of Russia
-Building LLM-based RAG chat-bot for the Central Bank.
-
-## 🦸‍♂️ Team
-We are the finalists of this competition. 
-Get to know us:
-- [Solomon](https://github.com/veidlink)
-- [Roman](https://github.com/gblssroman)
-- [Nikita](https://github.com/qdzzzxc)
-- [Vlad](https://github.com/vladik-pwnz)
-- [Nikita](https://github.com/AnalyseOptimize)
-
-# Навигация по репозиторию
-- `dataset_preprocessing` - очистка корпуса спаршенных текстов
-- `qa_generation` - генерация вопросов для валидации и finetun-a решения
-- `knn_bm25.ipynb` - некоторые эксперименты с объединением двух алгоритмов поиска
-- `chroma_db` - все файлы, связанные с запуском и наполнением ChromaDB
-- `clickhouse` - запись данных в Clickhouse из csv файла
-- `simularity.py` - скрипт по поиску релевантных документов
-- `embeddings.py` - получение эмбендингов для БД
-- `gui.ipynb` - **основной файл с фронтом приложения**
+### CONTEXT ###
+- `dataset_preprocessing` - cleaning the corpus of scraped texts
+- `qa_generation` - generating questions for validation and finetuning the solution
+- `knn_bm25.ipynb` - some experiments with combining two search algorithms
+- `chroma_db` - all files related to launching and populating ChromaDB
+- `clickhouse` - writing data to Clickhouse from a csv file
+- `simularity.py` - script for finding relevant documents
+- `embeddings.py` - obtaining embeddings for the database
+- `gui.ipynb` - **the main file with the application front-end**
 # Retrieval pipeline
 
-<a href="https://ibb.co/hDGDr8L"><img src="https://i.ibb.co/0h0h1Jm/pipeline.jpg" alt="pipeline" border="0"></a>
+[![pipeline](https://i.ibb.co/0h0h1Jm/pipeline.jpg)](https://ibb.co/hDGDr8L)
 
-# ***Как обращаться к LLM?***
+# ***How to interact with LLM?***
 
-поднимаем сервер:
-1. поднимаем сервер в LM Studio
-2. ```choco install ngrok```
-3. ```ngrok config add-authtoken [authtoken]```
-4. ```ngrok http --domain=live-relaxed-oryx.ngrok-free.app 1234 ```
+Starting the server:
+1. Launch the server in LM Studio
+2. \`\`\`choco install ngrok\`\`\`
+3. \`\`\`ngrok config add-authtoken [authtoken]\`\`\`
+4. \`\`\`ngrok http --domain=live-relaxed-oryx.ngrok-free.app 1234 \`\`\`
 
-обращаемся к LLM 
+Interacting with LLM 
 https://github.com/Data-Squad-of-Scoofs/cb-purple-hack/blob/db/inference_llm.ipynb
 
-# ***Как обращаться к базе данных?***
+# ***How to interact with the database?***
 
-Нами было реализовано для различных варианта. В итоге был выбран ClickHouse.
+We implemented various options. Eventually, ClickHouse was chosen.
 
 ## 1. ChromaDB
 
-Запуск базы в docker:
-```bash
+Launching the database in docker:
+\`\`\`bash
 docker pull chromadb/chroma
 docker run -p 8000:8000 chromadb/chroma
-```
+\`\`\`
 
-Подключение:
+Connecting:
 
-```python
+\`\`\`python
 pip install chromadb
 self.client = chromadb.HttpClient(host=your_ip, port=your_port)
-```
+\`\`\`
 
 ## 2. ClickHouse
 
-Запуск базы происходил через clickhouse.cloud, возможен также запуск через docker
-Работает быстрее, чем ChromaDB
+The database was launched via clickhouse.cloud, but it can also be launched via docker.
+It operates faster than ChromaDB.
 
-Подключение:
+Connecting:
 
-```python
+\`\`\`python
 pip install clickhouse_connect
 client = clickhouse_connect.get_client(host=your_ip, port=your_port, username=your_user_name, password=your_password)
-```
+\`\`\`
 
-# Генерация валидационного датасета
+# Generating a validation dataset
 
-<a href="https://ibb.co/TqnfPqk"><img src="https://i.ibb.co/QjqgYjf/14-03-2024-09-30-26.png" alt="14-03-2024-09-30-26" border="0"></a>
-
+[![14-03-2024-09-30-26](https://i.ibb.co/QjqgYjf/14-03-2024-09-30-26.png)](https://ibb.co/TqnfPqk)
 
 ------
 
-<a href="https://ibb.co/mvw67Gb"><img src="https://i.ibb.co/k3fQFx5/agents-d454d8169fbdc89ca73f7e23224a5122.png" alt="agents-d454d8169fbdc89ca73f7e23224a5122" border="0"></a>
+[![agents-d454d8169fbdc89ca73f7e23224a5122](https://i.ibb.co/k3fQFx5/agents-d454d8169fbdc89ca73f7e23224a5122.png)](https://ibb.co/mvw67Gb)
