@@ -6,7 +6,7 @@
 - `clickhouse` - запись данных в Clickhouse из csv файла
 - `simularity.py` - скрипт по поиску релевантных документов
 - `embeddings.py` - получение эмбендингов для БД
-
+- `gui.ipynb` - **основной файл с фронтом приложения**
 # Retrieval pipeline
 
 <a href="https://ibb.co/hDGDr8L"><img src="https://i.ibb.co/0h0h1Jm/pipeline.jpg" alt="pipeline" border="0"></a>
